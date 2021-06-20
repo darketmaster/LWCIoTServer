@@ -1,3 +1,6 @@
 /.vscode
 /my_env
 /workspace.code-workspace
+/lwc_api/__pycache__
+/lwc_api/migrations
+/serverIoTLWC/__pycache__/
