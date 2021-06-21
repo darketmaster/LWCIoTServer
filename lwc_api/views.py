@@ -66,7 +66,7 @@ def setDataDevice(request):
                 nonce = objdevice.nonce
                 assoc = objdevice.assoc                
             except ObjectDoesNotExist:
-                return Response('{"error":"Unauthorized access"}',status=status.HTTP_401_UNAUTHORIZED)
+                return Response('{"error":"Not Found"}',status=status.HTTP_404_NOT_FOUND)
 
             key = "IOT_APP_LWC_ASCON_SECRET_KEY---#";
             decode = base64.b64decode(data)
