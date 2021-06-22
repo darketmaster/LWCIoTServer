@@ -64,15 +64,27 @@ def setDataDevice(request):
             try:
                 objdevice = Device.objects.get(name=device)
                 nonce = objdevice.nonce
-                assoc = objdevice.assoc                
+                assoc = objdevice.assoc.encode()                
             except ObjectDoesNotExist:
                 return Response('{"error":"Not Found"}',status=status.HTTP_404_NOT_FOUND)
 
-            key = "IOT_APP_LWC_ASCON_SECRET_KEY---#";
+            key = "IOT_LWC_ASCON---";
+            bkey = bytearray()
+            bkey.extend(map(ord, key))
+            print(len(bkey))
             decode = base64.b64decode(data)
-            decript = ascon_decrypt(key, nonce, assoc, decode)
+            bnonce = bytes.fromhex(nonce)
+            print(bnonce)
+            print(len(bnonce))
+            print(decode)
+            print(assoc)
+            decript = ascon_decrypt(bkey, bnonce, assoc, decode)
 
-            return Response(assoc + " " + nonce + " " + data)
+            print(type(assoc.decode()))
+            print(type(nonce))
+            print(type(data))
+
+            return Response(assoc.decode() + " " + nonce + " " + data + " # " + decript.decode())
 
         else:
             return Response('{"error":"Bad Request"}',status=status.HTTP_400_BAD_REQUEST)
