@@ -61,6 +61,9 @@ def setDataDevice(request):
             data = request.data["data"] 
             print(type(data))
 
+            if type(data) != type(''):
+                return Response('{"error":"Bad Request"}',status=status.HTTP_400_BAD_REQUEST)
+
             try:
                 objdevice = Device.objects.get(name=device)
                 nonce = objdevice.nonce
@@ -85,8 +88,10 @@ def setDataDevice(request):
             print(type(data))
 
             ddecrypt = decrypt.decode();
+            print(ddecrypt)
 
-            return Response(assoc.decode() + " " + nonce + " " + data + " # " + ddecrypt)
+            #return Response(assoc.decode() + " " + nonce + " " + data + " # " + ddecrypt)
+            return Response('{"info":"Data Accepted"}')
 
         else:
             return Response('{"error":"Bad Request"}',status=status.HTTP_400_BAD_REQUEST)
