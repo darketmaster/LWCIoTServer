@@ -59,7 +59,7 @@ def setDataDevice(request):
         if "device" in request.data and "data" in request.data : 
             device = request.data["device"]
             data = request.data["data"] 
-            print(request.data)
+            print(type(data))
 
             try:
                 objdevice = Device.objects.get(name=device)
@@ -78,13 +78,15 @@ def setDataDevice(request):
             print(len(bnonce))
             print(decode)
             print(assoc)
-            decript = ascon_decrypt(bkey, bnonce, assoc, decode)
+            decrypt = ascon_decrypt(bkey, bnonce, assoc, decode)
 
             print(type(assoc.decode()))
             print(type(nonce))
             print(type(data))
 
-            return Response(assoc.decode() + " " + nonce + " " + data + " # " + decript.decode())
+            ddecrypt = decrypt.decode();
+
+            return Response(assoc.decode() + " " + nonce + " " + data + " # " + ddecrypt)
 
         else:
             return Response('{"error":"Bad Request"}',status=status.HTTP_400_BAD_REQUEST)
