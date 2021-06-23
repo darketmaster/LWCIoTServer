@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 
 from .serializers import DeviceSerializer
-from .models import Device
+from .models import Device, DeviceData
 import datetime
 import hashlib
 import json
@@ -59,7 +59,7 @@ def setDataDevice(request):
         if "device" in request.data and "data" in request.data : 
             device = request.data["device"]
             data = request.data["data"] 
-            print(type(data))
+            #print(type(data))
 
             if type(data) != type(''):
                 return Response('{"error":"Bad Request"}',status=status.HTTP_400_BAD_REQUEST)
@@ -71,28 +71,38 @@ def setDataDevice(request):
             except ObjectDoesNotExist:
                 return Response('{"error":"Not Found"}',status=status.HTTP_404_NOT_FOUND)
 
-            key = "IOT_LWC_ASCON---";
+            key = "IOT_LWC_ASCON---"
             bkey = bytearray()
-            bkey.extend(map(ord, key))
-            print(len(bkey))
+            bkey.extend(map(ord, key))            
             decode = base64.b64decode(data)
             bnonce = bytes.fromhex(nonce)
-            print(bnonce)
+            print(len(bkey))
+            #print(bnonce)
             print(len(bnonce))
-            print(decode)
-            print(assoc)
+            #print(decode)
+            #print(assoc)
             decrypt = ascon_decrypt(bkey, bnonce, assoc, decode)
-
-            print(type(assoc.decode()))
-            print(type(nonce))
-            print(type(data))
-
-            ddecrypt = decrypt.decode();
+            #print(type(assoc.decode()))
+            #print(type(nonce))
+            #print(type(data))
+            ddecrypt = decrypt.decode()
             print(ddecrypt)
+            decryp_data = json.loads(ddecrypt)
+            #ARRAY |    CO   |  Alcohol |   CO2  |  Tolueno  |  NH4  |  Acteona  |
+            print(decryp_data['sensor'])
 
-            #return Response(assoc.decode() + " " + nonce + " " + data + " # " + ddecrypt)
+            import pytz
+            col = pytz.timezone("America/Bogota")
+            d = datetime.datetime.strptime(decryp_data["time"], '%Y-%m-%d %H:%M:%S')
+            newdate = col.localize(d)
+            print(d)
+            print(newdate)
+
+            model = DeviceData.objects.create(ip=decryp_data["IP"],mac=decryp_data["MAC"],ordate=newdate)
+            model.mq135 = decryp_data['sensor']["MQ-135"]
+            model.save()
+
             return Response('{"info":"Data Accepted"}')
-
         else:
             return Response('{"error":"Bad Request"}',status=status.HTTP_400_BAD_REQUEST)
 
