@@ -1,0 +1,18 @@
+@startuml
+autonumber
+title LWC-IoT Sensor APP
+
+Sensor_Node -> Central_Node: Registration Request
+activate Central_Node
+Central_Node --> Sensor_Node: Registration Response
+deactivate Central_Node
+
+Sensor_Node -> Central_Node: Data sending
+activate Central_Node
+Central_Node -> Central_Node: Data Decrypt
+
+database Database
+activate Database
+Central_Node -> Database: Data Save
+Central_Node --> Sensor_Node: Data Accepted
+@enduml

@@ -19,9 +19,6 @@ class Device(models.Model):
         self.modified = timezone.now()
         return super(Device, self).save(*args, **kwargs)
 
-
-
-
 class DeviceData(models.Model):
     ip = models.CharField(max_length=16)
     mac = models.CharField(max_length=13)
