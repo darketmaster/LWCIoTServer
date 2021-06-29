@@ -100,6 +100,7 @@ def setDataDevice(request):
 
             model = DeviceData.objects.create(ip=decryp_data["IP"],mac=decryp_data["MAC"],ordate=newdate)
             model.mq135 = decryp_data['sensor']["MQ-135"]
+            model.sds011 = decryp_data['sensor']["SDS011"]
             model.save()
 
             return Response('{"info":"Data Accepted"}')

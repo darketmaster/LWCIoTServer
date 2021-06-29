@@ -15,7 +15,7 @@ class DeviceAdmin(admin.ModelAdmin):
 
 @admin.register(DeviceData)
 class DeviceDataAdmin(admin.ModelAdmin):
-    list_display = ("ip", "mac", "mq135", "ordate", "redate")
+    list_display = ("ip", "mac", "mq135", "sds011", "ordate", "redate")
     list_filter = ("mac", "ordate", "redate" )
     search_fields = ("mac__startswith", )
 

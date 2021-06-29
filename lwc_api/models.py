@@ -23,6 +23,7 @@ class DeviceData(models.Model):
     ip = models.CharField(max_length=16)
     mac = models.CharField(max_length=13)
     mq135 = models.CharField(max_length=128, default="NONE")
+    sds011 = models.CharField(max_length=128, default="NONE")
     ordate = models.DateTimeField(editable=False)
     redate = models.DateTimeField(editable=False)
 
