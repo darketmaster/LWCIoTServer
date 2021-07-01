@@ -32,8 +32,10 @@ register
 setDataDevice
 ```
 
-## Contributing
-....
+## Authors
+
+* **Mauricio Lopez T.** - [*GitHub*](https://github.com/darketmaster)
+* **Andres Quintero T.**
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
