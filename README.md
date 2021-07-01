@@ -1,8 +1,7 @@
 # LWCIoTServer
 
 LWCIoTServer is a Python development for a basic server for IoT with ASCON LWC Implementation.
-
-[ASCON PYTHON Implementation Repo](https://github.com/meichlseder/pyascon)
+Based in [ASCON PYTHON Implementation Repo](https://github.com/meichlseder/pyascon)
 
 ## Installation
 
