@@ -1,0 +1,20 @@
+@startuml
+'autonumber
+title LWC-IoT Ambiental Sensor APP
+
+left to right direction
+actor "Sensor" as ss
+actor "User" as us
+rectangle "Central Node(Server)" {
+  usecase "Registry" as UC1
+  usecase "SendData" as UC2
+  usecase "Admin Users" as UC3
+  usecase "Admin Devices" as UC4
+  usecase "Admin Data" as UC5
+}
+ss --> UC1
+ss --> UC2
+us --> UC3
+us --> UC4
+us --> UC5
+@enduml
