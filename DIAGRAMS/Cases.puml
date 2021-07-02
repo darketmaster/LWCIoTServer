@@ -6,11 +6,15 @@ left to right direction
 actor "Sensor" as ss
 actor "User" as us
 rectangle "Central Node(Server)" {
-  usecase "Registry" as UC1
-  usecase "SendData" as UC2
-  usecase "Admin Users" as UC3
-  usecase "Admin Devices" as UC4
-  usecase "Admin Data" as UC5
+  package API{
+    usecase "Registry" as UC1
+    usecase "SendData" as UC2
+  }
+  package Admin{
+    usecase "Admin Users" as UC3
+    usecase "Admin Devices" as UC4
+    usecase "Admin Data" as UC5
+  }
 }
 ss --> UC1
 ss --> UC2
