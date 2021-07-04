@@ -1,0 +1,19 @@
+@startuml C4
+title LWC-IoT Ambiental Sensor APP
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(Admin, "Admin User", "Administrador")
+System(Sensor, "Sensor", "IoT Sensor")
+System_Boundary(Server, "Node Server", "API Server", "API Server node"){
+    Container(Frontend, "Frontend", "Web application")
+    Container(Backend, "Backend", "Expose API, handle registry and decrypt data")
+    ContainerDb(db, "Database", "Holds Data and registry information")
+}
+
+Rel(Sensor, Backend, "API", "API REST/HTTP")
+Rel(Admin, Frontend, "Admin", "HTTP")
+Rel(Backend, db, "Writes Data", "SQL")
+Rel(Frontend, Backend, "Read and Write Request Data", "SQL")
+@enduml
