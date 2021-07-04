@@ -14,6 +14,6 @@ System_Boundary(Server, "Node Server", "API Server", "API Server node"){
 
 Rel(Sensor, Backend, "API", "API REST/HTTP")
 Rel(Admin, Frontend, "Admin", "HTTP")
-Rel(Backend, db, "Writes Data", "SQL")
-Rel(Frontend, Backend, "Read and Write Request Data", "SQL")
+Rel_R(Backend, db, "Writes Data", "SQL")
+Rel_R(Frontend, Backend, "Read and Write Request Data", "SQL")
 @enduml
