@@ -35,7 +35,6 @@ def registerDevice(request):
                   nonce = hashlib.md5(cad.encode()).hexdigest()
                   dic = {
                       "nonce": nonce,
-                      #"cad": cad,
                   }
                   model, bcreated = Device.objects.get_or_create(name=device)
                   model.nonce = nonce
@@ -59,7 +58,6 @@ def setDataDevice(request):
         if "device" in request.data and "data" in request.data : 
             device = request.data["device"]
             data = request.data["data"] 
-            #print(type(data))
 
             if type(data) != type(''):
                 return Response('{"error":"Bad Request"}',status=status.HTTP_400_BAD_REQUEST)
@@ -77,14 +75,8 @@ def setDataDevice(request):
             decode = base64.b64decode(data)
             bnonce = bytes.fromhex(nonce)
             print(len(bkey))
-            #print(bnonce)
             print(len(bnonce))
-            #print(decode)
-            #print(assoc)
             decrypt = ascon_decrypt(bkey, bnonce, assoc, decode)
-            #print(type(assoc.decode()))
-            #print(type(nonce))
-            #print(type(data))
             ddecrypt = decrypt.decode()
             print(ddecrypt)
             decryp_data = json.loads(ddecrypt)
