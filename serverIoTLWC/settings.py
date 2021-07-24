@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'lwc_api',
     'rest_framework',
+    'homepage',
+    'login',
 ]
 
 MIDDLEWARE = [
