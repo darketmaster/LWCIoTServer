@@ -1,5 +1,5 @@
 /.vscode
-/my_env
+/env
 /workspace.code-workspace
 /lwc_api/__pycache__
 /lwc_api/migrations
