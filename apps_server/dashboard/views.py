@@ -138,7 +138,7 @@ class DeviceDeleteView(LoginRequiredMixin,DeleteView):
         context['list_url'] = self.success_url
         return context
 
-#LISTAR
+#LISTAR DATA
 class DeviceDataListView(LoginRequiredMixin,ListView):
     model = DeviceData
     template_name = 'device/list_data.html'
