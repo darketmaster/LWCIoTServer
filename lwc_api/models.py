@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from django.forms import model_to_dict
+import datetime
 
 # Create your models here.
 class Device(models.Model):
@@ -18,6 +20,13 @@ class Device(models.Model):
             self.created = timezone.now()
         self.modified = timezone.now()
         return super(Device, self).save(*args, **kwargs)
+
+    #RETORNAR OBJETO EN  JSON
+    def toJSON(self):
+        item = model_to_dict(self)
+        item['created'] =  self.created.strftime('%Y/%m/%d %H:%M')
+        item['modified'] =  self.modified.strftime('%Y/%m/%d %H:%M')
+        return item
 
 class DeviceData(models.Model):
     ip = models.CharField(max_length=16)

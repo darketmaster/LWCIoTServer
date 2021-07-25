@@ -15,13 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from homepage.views import IndexView
+from apps_server.homepage.views import IndexView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('lwc_api.urls')),
     #LOGIN
-    path('login/',include('login.urls')),
+    path('login/',include('apps_server.login.urls')),
+    #DASHBOARD
+    path('dashboard/',include('apps_server.dashboard.urls')),
     #INICIAL
     path('',IndexView.as_view(),name='index'),
 ]
