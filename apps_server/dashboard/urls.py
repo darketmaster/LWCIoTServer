@@ -6,7 +6,7 @@ urlpatterns = [
     path('', DeviceListView.as_view(), name='device_list'),
     #DEVICE
     path('device/add/', DeviceCreateView.as_view(), name='device_create'),
-    path('device/update/<int:pk>/', DeviceCreateView.as_view(), name='device_update'),
+    path('device/update/<int:pk>/', CategoryUpdateView.as_view(), name='device_update'),
     path('device/delete/<int:pk>/', DeviceDeleteView.as_view(), name='device_delete'),
     #DATA DEVICE
     path('device/data/', DeviceCreateView.as_view(), name='device_create'),

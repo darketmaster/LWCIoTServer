@@ -80,38 +80,37 @@ class DeviceCreateView(LoginRequiredMixin,CreateView):
         return context
 
 #UPDATE
-# class CategoryUpdateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, UpdateView):
-#     model = Category
-#     form_class = CategoryForm
-#     template_name = 'category/create.html'
-#     success_url = reverse_lazy('erp:category_list')
-#     permission_required = 'erp.change_category'
-#     url_redirect = success_url
+class CategoryUpdateView(LoginRequiredMixin,UpdateView):
+    model = Device
+    form_class = DeviceForm
+    template_name = 'device/create.html'
+    success_url = reverse_lazy('dashboard:device_list')
+    url_redirect = success_url
 
-#     def dispatch(self, request, *args, **kwargs):
-#         self.object = self.get_object()
-#         return super().dispatch(request, *args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
 
-#     def post(self, request, *args, **kwargs):
-#         data = {}
-#         try:
-#             action = request.POST['action']
-#             if action == 'edit':
-#                 form = self.get_form()
-#                 data = form.save()
-#             else:
-#                 data['error'] = 'No ha ingresado a ninguna opción'
-#         except Exception as e:
-#             data['error'] = str(e)
-#         return JsonResponse(data)
+    def post(self, request, *args, **kwargs):
+        data = {}
+        try:
+            action = request.POST['action']
+            if action == 'edit':
+                form = self.get_form()
+                data = form.save()
+            else:
+                data['error'] = 'No ha ingresado a ninguna opción'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data)
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = 'Edición una Categoria'
-#         context['entity'] = 'Categorias'
-#         context['list_url'] = self.success_url
-#         context['action'] = 'edit'
-#         return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Edición un dispositivo'
+        context['entity'] = 'Dispositivos'
+        context['list_url'] = self.success_url
+        context['action'] = 'edit'
+        return context
 
 #DELETE
 class DeviceDeleteView(LoginRequiredMixin,DeleteView):
