@@ -44,3 +44,10 @@ class DeviceData(models.Model):
         if not self.redate:
             self.redate = timezone.now()
         return super(DeviceData, self).save(*args, **kwargs)
+
+    #RETORNAR OBJETO EN  JSON
+    def toJSON(self):
+        item = model_to_dict(self)
+        item['ordate'] =  self.ordate.strftime('%Y/%m/%d %H:%M')
+        item['redate'] =  self.redate.strftime('%Y/%m/%d %H:%M')
+        return item

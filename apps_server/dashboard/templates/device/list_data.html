@@ -1,0 +1,29 @@
+{% extends 'list.html' %}
+{% load static %}
+{% block head_list %}
+    <script src="{% static 'device/js/data_list.js' %}"></script>
+{% endblock %}
+
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 5%;">Nro</th>
+        <th scope="col" style="width: 10%;">IP</th>
+        <th scope="col" style="width: 10%;">MAC</th>
+        <th scope="col" style="width: 30%;">MQ135</th>
+        <th scope="col" style="width: 25%;">SDS011</th>
+        <th scope="col" style="width: 10%;">ORDATE</th>
+        <th scope="col" style="width: 10%;">REDATE</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+
+{% endblock %}
+{% block buttons_list %}
+    <a href="{{ list_url }}" class="btn btn-success btn-flat">
+        <i class="fas fa-sync"></i> Actualizar
+    </a>
+{% endblock %}
+{% block javascript %}
+
+{% endblock %}

@@ -137,3 +137,37 @@ class DeviceDeleteView(LoginRequiredMixin,DeleteView):
         context['entity'] = 'Dispositivos'
         context['list_url'] = self.success_url
         return context
+
+#LISTAR
+class DeviceDataListView(LoginRequiredMixin,ListView):
+    model = DeviceData
+    template_name = 'device/list_data.html'
+    
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        try:
+            action = request.POST['action']
+            if action == 'searchdata':
+                data = []
+                #test = DeviceData.objects.all()
+                #print(test)
+                for i in DeviceData.objects.all():
+                    data.append(i.toJSON())
+                print(data)
+            else:
+                data['error'] = 'Ha ocurrido un error'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Listado data de dispositivos'
+        context['create_url'] = reverse_lazy('dashboard:device_data_list')
+        context['list_url'] = reverse_lazy('dashboard:device_data_list')
+        context['entity'] = 'Data Dispositivos'
+        return context
