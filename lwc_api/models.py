@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.forms import model_to_dict
-import datetime
+import datetime as dt
 
 # Create your models here.
 class Device(models.Model):
@@ -24,8 +24,15 @@ class Device(models.Model):
     #RETORNAR OBJETO EN  JSON
     def toJSON(self):
         item = model_to_dict(self)
-        item['created'] =  self.created.strftime('%Y/%m/%d %H:%M')
-        item['modified'] =  self.modified.strftime('%Y/%m/%d %H:%M')
+        #FORMATEAR FECHA A +5
+        local_tz = dt.timezone(dt.timedelta(hours=+5))
+        utc = dt.timezone.utc
+        created = dt.datetime(self.created.year,self.created.month,self.created.day,self.created.hour,self.created.minute,self.created.second, 0, local_tz)
+        modified = dt.datetime(self.modified.year,self.modified.month,self.modified.day,self.modified.hour,self.modified.minute,self.modified.second, 0, local_tz)
+
+        item['created'] =  created.astimezone(utc)
+        item['modified'] =  modified.astimezone(utc)
+        
         return item
 
 class DeviceData(models.Model):
@@ -48,6 +55,12 @@ class DeviceData(models.Model):
     #RETORNAR OBJETO EN  JSON
     def toJSON(self):
         item = model_to_dict(self)
-        item['ordate'] =  self.ordate.strftime('%Y/%m/%d %H:%M')
-        item['redate'] =  self.redate.strftime('%Y/%m/%d %H:%M')
+	#FORMATEAR FECHA A +5
+        local_tz = dt.timezone(dt.timedelta(hours=+5))
+        utc = dt.timezone.utc
+        ordate = dt.datetime(self.ordate.year,self.ordate.month,self.ordate.day,self.ordate.hour,self.ordate.minute,self.ordate.second, 0, local_tz)
+        redate = dt.datetime(self.redate.year,self.redate.month,self.redate.day,self.redate.hour,self.redate.minute,self.redate.second, 0, local_tz)
+        #CAMBIAR FORMATO
+        item['ordate'] =  ordate.astimezone(utc).strftime('%Y/%m/%d %H:%M')
+        item['redate'] =  redate.astimezone(utc).strftime('%Y/%m/%d %H:%M')
         return item
