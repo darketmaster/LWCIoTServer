@@ -5,3 +5,5 @@
 /lwc_api/migrations
 /serverIoTLWC/__pycache__/
 /lwc_api/pyascon/__pycache__/
+*.pyc
+my_env/
